@@ -1,0 +1,11 @@
+.toroshide {visibility: hidden; height: 0px;}
+.torosshow {visibility: visible; height: 100%; }
+
+
+.card-group [class*='col-'] {
+    float:none;
+}
+#gif{
+    position: fixed;
+    z-index: 999999;
+}
