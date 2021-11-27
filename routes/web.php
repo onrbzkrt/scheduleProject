@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\IndexController@index');
+Route::get('/', 'App\Http\Controllers\EventController@index');
 
 
 /*
@@ -26,9 +26,21 @@ Route::post('/addEvent', 'App\Http\Controllers\EventController@addEvent');
  */
 Route::post('/getSpecialEvent', 'App\Http\Controllers\EventController@getSpecialEvent');
 
-/*
- * Login
- */
-Route::get('/admin', 'App\Http\Controllers\LoginController@index');
-Route::post('/authenticate', 'App\Http\Controllers\LoginController@authenticate');
+Route::group(['middleware' => ['guest']], function ()
+{
+    /*
+   * Login
+   */
+    Route::get('/admin', 'App\Http\Controllers\LoginController@index')->name("login");
+    Route::post('/authenticate', 'App\Http\Controllers\LoginController@authenticate');
+});
+
+
+Route::group(['middleware' => ['auth']], function ()
+{
+    /*
+   * Panel
+   */
+    Route::get('/panel', 'App\Http\Controllers\Back\PanelController@index');
+});
 

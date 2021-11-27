@@ -11,7 +11,7 @@
                     <div id='calendar'></div>
                 </div>
             </div>
-            <div class="row mt-2">
+            <div class="row">
                 <div id="calendarDiv" class="col-12 toroshide">
                     <div class="card">
                         <div class="card-body">

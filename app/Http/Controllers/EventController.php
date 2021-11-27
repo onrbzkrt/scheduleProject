@@ -5,9 +5,33 @@ namespace App\Http\Controllers;
 use App\Models\EventModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+    public function index()
+    {
+        $now = Carbon::now()->format("Y-m-d");
+        $data = EventModel::where("startDate",">=",$now)->get();
+        $dateRange = [];
+
+        foreach ($data as $datum)
+        {
+            $checkIt = explode(' ', $datum->startDate)[0];
+            if (isset($dateRange[$checkIt]))
+            {
+                $dateRange[$checkIt] = $dateRange[$checkIt] + 1;
+            }
+            else
+            {
+                $dateRange[$checkIt] = 1;
+            }
+        }
+
+
+        return view('index', compact("data", "dateRange"));
+    }
+
     public function addEvent(Request $request)
     {
         $validated = $request->validate([
